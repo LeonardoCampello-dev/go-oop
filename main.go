@@ -17,5 +17,17 @@ func main() {
 		999.99,
 	}
 
-	fmt.Println(account)
+	fmt.Println(account.withdraw(2000))
+}
+
+func (account *CheckingAccount) withdraw(value float64) string {
+	isReadyToWithdraw := value > 0 && value <= account.balance
+
+	if isReadyToWithdraw {
+		account.balance -= value
+
+		return "Withdrawal successful!"
+	}
+
+	return "Insufficient balance for withdrawal."
 }
