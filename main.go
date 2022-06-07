@@ -10,14 +10,21 @@ type CheckingAccount struct {
 }
 
 func main() {
-	account := CheckingAccount{
+	firstAccount := CheckingAccount{
 		"Leonardo",
 		111,
 		1,
 		999.99,
 	}
 
-	fmt.Println(account.deposit(100))
+	secondAccount := CheckingAccount{
+		"Tester",
+		222,
+		2,
+		100,
+	}
+
+	fmt.Println(firstAccount.transfer(100, &secondAccount))
 }
 
 func (account *CheckingAccount) withdraw(value float64) (string, float64) {
@@ -33,11 +40,27 @@ func (account *CheckingAccount) withdraw(value float64) (string, float64) {
 }
 
 func (account *CheckingAccount) deposit(value float64) (string, float64) {
-	if value < 0 {
+	isInvalidValue := value < 0
+
+	if isInvalidValue {
 		return "Invalid value", account.balance
 	}
 
 	account.balance += value
 
 	return "Deposit made successfully", account.balance
+}
+
+func (account *CheckingAccount) transfer(value float64, destinationAccount *CheckingAccount) (string, float64) {
+	haveEnoughBalance := value > 0 && value < account.balance
+
+	if haveEnoughBalance {
+		account.balance -= value
+
+		destinationAccount.deposit(value)
+
+		return "Transfer performed successfully", account.balance
+	}
+
+	return "Insufficient amount for transfer", account.balance
 }
