@@ -1,7 +1,9 @@
 package accounts
 
+import "github.com/LeonardoCampello-dev/go-oop/customers"
+
 type CheckingAccount struct {
-	Holder  string
+	Holder  customers.Holder
 	Agency  int
 	Account int
 	Balance float64
