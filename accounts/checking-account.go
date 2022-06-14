@@ -6,43 +6,47 @@ type CheckingAccount struct {
 	Holder  customers.Holder
 	Agency  int
 	Account int
-	Balance float64
+	balance float64
 }
 
 func (account *CheckingAccount) Withdraw(value float64) (string, float64) {
-	isReadyToWithdraw := value > 0 && value <= account.Balance
+	isReadyToWithdraw := value > 0 && value <= account.balance
 
 	if isReadyToWithdraw {
-		account.Balance -= value
+		account.balance -= value
 
-		return "Withdrawal successful!", account.Balance
+		return "Withdrawal successful!", account.balance
 	}
 
-	return "Insufficient balance for withdrawal.", account.Balance
+	return "Insufficient balance for withdrawal.", account.balance
 }
 
 func (account *CheckingAccount) Deposit(value float64) (string, float64) {
 	isInvalidValue := value < 0
 
 	if isInvalidValue {
-		return "Invalid value", account.Balance
+		return "Invalid value", account.balance
 	}
 
-	account.Balance += value
+	account.balance += value
 
-	return "Deposit made successfully", account.Balance
+	return "Deposit made successfully", account.balance
 }
 
 func (account *CheckingAccount) Transfer(value float64, destinationAccount *CheckingAccount) (string, float64) {
-	haveEnoughBalance := value > 0 && value < account.Balance
+	haveEnoughbalance := value > 0 && value < account.balance
 
-	if haveEnoughBalance {
-		account.Balance -= value
+	if haveEnoughbalance {
+		account.balance -= value
 
 		destinationAccount.Deposit(value)
 
-		return "Transfer performed successfully", account.Balance
+		return "Transfer performed successfully", account.balance
 	}
 
-	return "Insufficient amount for transfer", account.Balance
+	return "Insufficient amount for transfer", account.balance
+}
+
+func (account *CheckingAccount) GetBalance() float64 {
+	return account.balance
 }

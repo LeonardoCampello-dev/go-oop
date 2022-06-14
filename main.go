@@ -18,8 +18,9 @@ func main() {
 		Holder:  leonardo,
 		Agency:  111,
 		Account: 1,
-		Balance: 9999.99,
 	}
 
-	fmt.Println(account)
+	account.Deposit(400)
+
+	fmt.Println(account.GetBalance())
 }
