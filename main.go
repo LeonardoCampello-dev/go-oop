@@ -7,6 +7,14 @@ import (
 	"github.com/LeonardoCampello-dev/go-oop/customers"
 )
 
+type verifyAccount interface {
+	Withdraw(value float64) (string, float64)
+}
+
+func payBankSlip(account verifyAccount, bankSlipValue float64) {
+	account.Withdraw(bankSlipValue)
+}
+
 func main() {
 	leonardo := customers.Holder{
 		Name:           "Leonardo",
@@ -14,30 +22,15 @@ func main() {
 		Profession:     "Developer",
 	}
 
-	checkingAccount := accounts.CheckingAccount{
+	savingsAccount := accounts.SavingsAccount{
 		Holder:  leonardo,
 		Agency:  111,
 		Account: 1,
 	}
 
-	checkingAccount.Deposit(400)
+	savingsAccount.Deposit(5000)
 
-	fmt.Println(checkingAccount, checkingAccount.GetBalance())
-
-	bianca := customers.Holder{
-		Name:           "Bianca",
-		DocumentNumber: "925.885.450-09",
-		Profession:     "Intern",
-	}
-
-	savingsAccount := accounts.SavingsAccount{
-		Holder:  bianca,
-		Agency:  111,
-		Account: 1,
-	}
-
-	savingsAccount.Deposit(300)
-	savingsAccount.Withdraw(100)
+	payBankSlip(&savingsAccount, 900)
 
 	fmt.Println(savingsAccount.GetBalance())
 }
