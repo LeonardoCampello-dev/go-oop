@@ -14,13 +14,30 @@ func main() {
 		Profession:     "Developer",
 	}
 
-	account := accounts.CheckingAccount{
+	checkingAccount := accounts.CheckingAccount{
 		Holder:  leonardo,
 		Agency:  111,
 		Account: 1,
 	}
 
-	account.Deposit(400)
+	checkingAccount.Deposit(400)
 
-	fmt.Println(account.GetBalance())
+	fmt.Println(checkingAccount, checkingAccount.GetBalance())
+
+	bianca := customers.Holder{
+		Name:           "Bianca",
+		DocumentNumber: "925.885.450-09",
+		Profession:     "Intern",
+	}
+
+	savingsAccount := accounts.SavingsAccount{
+		Holder:  bianca,
+		Agency:  111,
+		Account: 1,
+	}
+
+	savingsAccount.Deposit(300)
+	savingsAccount.Withdraw(100)
+
+	fmt.Println(savingsAccount.GetBalance())
 }

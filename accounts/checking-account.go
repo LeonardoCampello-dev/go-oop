@@ -3,8 +3,8 @@ package accounts
 import "github.com/LeonardoCampello-dev/go-oop/customers"
 
 type CheckingAccount struct {
-	Holder  customers.Holder
-	Agency  int
+	Holder customers.Holder
+	Agency,
 	Account int
 	balance float64
 }
